@@ -17,6 +17,7 @@
             <form:option value="0" label="Selecionar" />
             <form:options items="${webConsultarMedicos}" />
         </form:select>
+        <input type="submit" value ="confirmar">
     </form:form>    
 </body>
 </html>
