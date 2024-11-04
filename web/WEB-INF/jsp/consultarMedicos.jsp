@@ -12,7 +12,7 @@
     <title>Document</title>
 </head>
 <body>
-    <form:form method="POST" action="${pageContext.request.contextPath}/consultarMedicos" modelAttribute="medico" name="formulario" id="formulario">
+    <form:form method="POST" action="${pageContext.request.contextPath}/consultarMedico" modelAttribute="medico" name="formulario" id="formulario">
         <form:select path="codigoMedico">
             <form:option value="0" label="Selecionar" />
             <form:options items="${webConsultarMedicos}" />
