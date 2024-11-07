@@ -152,7 +152,10 @@ public class UsuarioModelo {
 
             pstm.setString(1, us.getNome());
             pstm.setString(2, us.getSenha());
-            pstm.setDate(3, us.getDataNascimento());
+            if (us.getDataNascimento() instanceof java.sql.Date)
+                pstm.setDate(3, us.getDataNascimento());
+            else
+                pstm.setDate(3, Date.valueOf("2006-04-19"));
             pstm.setString(4, us.getSexo() + "");
             pstm.setString(5, us.getCpf());
             pstm.setString(6, us.getCep());
