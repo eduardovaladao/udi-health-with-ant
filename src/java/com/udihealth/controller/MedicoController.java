@@ -61,7 +61,11 @@ public class MedicoController {
         modelo.addAttribute("nome", med.getNome());
         modelo.addAttribute("senha", med.getSenha());
         modelo.addAttribute("sexo", med.getSexo());
-        modelo.addAttribute("dataNascimento",  med.getDataNascimento());
+        if (med.getDataNascimento() instanceof java.sql.Date) {
+            modelo.addAttribute("dataNascimento",  med.getDataNascimento());
+        } else {
+            modelo.addAttribute("dataNascimento",  java.sql.Date.valueOf("2006-04-19"));
+        }
         modelo.addAttribute("crm", med.getCrm());
         modelo.addAttribute("cpf", med.getCpf());
         modelo.addAttribute("cep", med.getCep());
