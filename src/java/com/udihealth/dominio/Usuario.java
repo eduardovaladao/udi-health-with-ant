@@ -1,13 +1,18 @@
 package com.udihealth.dominio;
 
+import com.udihealth.tools.ConversorStringSqlDate;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.sql.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Usuario {
 
     protected Integer codigoUsuario;
 
     protected String nome;
-    
+
     protected String senha;
 
     protected Date dataNascimento;
@@ -21,7 +26,7 @@ public class Usuario {
     protected String telefone;
 
     protected String email;
-    
+
     protected Status status = Status.ATIVO;
 
     public Usuario() {
@@ -39,7 +44,7 @@ public class Usuario {
         this.email = email;
         this.status = status;
     }
-    
+
     public Integer getCodigoUsuario() {
         return codigoUsuario;
     }
@@ -67,9 +72,13 @@ public class Usuario {
     public Date getDataNascimento() {
         return dataNascimento;
     }
-
+    
     public void setDataNascimento(Date dataNascimento) {
-       this.dataNascimento = dataNascimento;
+        this.dataNascimento = dataNascimento;
+    }
+    
+     public void setDataNascimento(String dataNascimento) {
+        this.dataNascimento = Date.valueOf(dataNascimento);
     }
 
     public Character getSexo() {
@@ -95,7 +104,7 @@ public class Usuario {
     public void setCep(String cep) {
         this.cep = cep;
     }
-    
+
     public String getTelefone() {
         return telefone;
     }

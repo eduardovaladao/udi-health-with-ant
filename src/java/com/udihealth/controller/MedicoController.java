@@ -38,11 +38,7 @@ public class MedicoController {
     public String consultarMedico(@ModelAttribute("medico") Medico med, Model modelo) {
         Medico medico = MedicoModelo.buscarMedicoCodigo(med.getCodigoMedico());
         System.out.println(med.getNome());
-        modelo.addAttribute("nome", medico.getNome());
-        modelo.addAttribute("sexo", medico.getSexo() + ""); // conversão para String
-        modelo.addAttribute("cpf", medico.getCpf());
-        modelo.addAttribute("crm", medico.getCrm());
-        modelo.addAttribute("telefone", medico.getTelefone());
+        modelo.addAttribute("medico", med);
 
         return "resultadoMedico"; // Exemplo de redirecionamento
     }
@@ -56,25 +52,30 @@ public class MedicoController {
     public String adicionarMedico(@ModelAttribute("medico")@Validated Medico med, BindingResult bindingResult, Model modelo) {
         // if (bindingResult.hasErrors()) return "adicionarMedico";
         
+        // Verifique se a data foi convertida corretamente
+        System.out.println("Data Nascimento: " + med.getNome());
+        System.out.println("Data Nascimento: " + med.getDataNascimento());
+        
         UsuarioModelo.inserirUsuario(med);        
         
         modelo.addAttribute("nome", med.getNome());
         modelo.addAttribute("senha", med.getSenha());
         modelo.addAttribute("sexo", med.getSexo());
-        if (med.getDataNascimento() instanceof java.sql.Date) {
-            modelo.addAttribute("dataNascimento",  med.getDataNascimento());
-        } else {
-            modelo.addAttribute("dataNascimento",  java.sql.Date.valueOf("2006-04-19"));
-        }
+        modelo.addAttribute("dataNascimento", med.getDataNascimento());
         modelo.addAttribute("crm", med.getCrm());
         modelo.addAttribute("cpf", med.getCpf());
         modelo.addAttribute("cep", med.getCep());
         modelo.addAttribute("telefone", med.getTelefone());
         modelo.addAttribute("email", med.getEmail());
         
-        
-        
         return "resultadoNovoMedico";
+    }
+    
+    @RequestMapping(value = "/atualizarMedico", method = RequestMethod.POST)
+    public String atualizarMedico(@ModelAttribute Medico medico) {
+        // Salvar as alterações no banco
+        UsuarioModelo.atualizarUsuario(medico.getCodigoUsuario(), medico); // Implementar no serviço
+        return "redirect:/medico/sucesso"; // Redireciona para uma página de sucesso
     }
 
     @ModelAttribute("medico")
@@ -92,5 +93,4 @@ public class MedicoController {
         }
         return consultaMedicos;
     }
-
 }

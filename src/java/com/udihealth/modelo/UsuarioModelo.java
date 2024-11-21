@@ -7,6 +7,7 @@ import com.udihealth.dominio.Usuario;
 import com.udihealth.dominio.Paciente;
 import com.udihealth.dominio.Medico;
 import com.udihealth.dominio.Status;
+import java.time.LocalDate;
 
 public class UsuarioModelo {
 
@@ -152,10 +153,7 @@ public class UsuarioModelo {
 
             pstm.setString(1, us.getNome());
             pstm.setString(2, us.getSenha());
-            if (us.getDataNascimento() instanceof java.sql.Date)
-                pstm.setDate(3, us.getDataNascimento());
-            else
-                pstm.setDate(3, Date.valueOf("2006-04-19"));
+            pstm.setDate(3, us.getDataNascimento());
             pstm.setString(4, us.getSexo() + "");
             pstm.setString(5, us.getCpf());
             pstm.setString(6, us.getCep());
@@ -186,7 +184,7 @@ public class UsuarioModelo {
             } else {
                 System.err.println("Nem médico, nem paciente está sendo inserido no banco.");
             }
-            System.out.println("Novo usuário inserido!");
+            System.out.println("Novo usuário inserido!\n Data nasc.: " + us.getDataNascimento());
             System.out.println(us);
         } catch (SQLException err) {
             System.err.println("Erro ao inserir usuário: " + err.getMessage());

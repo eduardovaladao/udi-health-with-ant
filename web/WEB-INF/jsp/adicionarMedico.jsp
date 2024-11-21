@@ -9,7 +9,7 @@
     </head>
     <body>
         <h1>Cadastro de Cliente</h1>            
-        <form:form method="POST" action="${pageContext.request.contextPath}/adicionarNovoMedico" commandName="medico" name="formulario" id="formulario">
+        <form:form method="POST" action="${pageContext.request.contextPath}/adicionarNovoMedico" modelAttribute="medico">
 
             <form:label path="nome">Nome</form:label>
             <form:input path="nome" />
@@ -23,8 +23,8 @@
             <form:label path="cpf">CPF</form:label>
             <form:input path="cpf" />
 
-            <form:label path="dataNascimento">Data nasc.</form:label>
-            <form:input path="dataNascimento"/>
+            <form:label path="dataNascimento">Data nascimento</form:label>
+            <form:input path="dataNascimento" type="text" />
 
             <form:label path="sexo">Sexo</form:label>
             <form:radiobutton path="sexo" value="${'M'}" label = "Masculino"  /> 
