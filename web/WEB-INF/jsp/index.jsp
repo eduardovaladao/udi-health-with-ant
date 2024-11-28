@@ -17,8 +17,9 @@
         <h2>Selecione uma ação para médico</h2>
         
         <a href="${pageContext.request.contextPath}/consultarMedicos">Buscar medico</a>
-        <a href="${pageContext.request.contextPath}/atualizarMedico">Atualizar médico</a>
         <a href="${pageContext.request.contextPath}/adicionarMedico">Adicionar médico</a>
+        <a href="${pageContext.request.contextPath}/consultarPacientes">Buscar paciente</a>
+        <a href="${pageContext.request.contextPath}/adicionarPaciente">Adicionar paciente</a>
         <a>Inativar médico</a>
         
     </body>
