@@ -1,6 +1,5 @@
 package com.udihealth.dominio;
 
-import com.udihealth.tools.ConversorStringSqlDate;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.sql.Date;

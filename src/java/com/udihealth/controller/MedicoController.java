@@ -3,17 +3,14 @@ package com.udihealth.controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.sql.Date;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.udihealth.dominio.Medico;
-import com.udihealth.dominio.Usuario;
 import com.udihealth.modelo.MedicoModelo;
 import com.udihealth.modelo.UsuarioModelo;
 import org.springframework.ui.Model;
@@ -22,11 +19,6 @@ import org.springframework.validation.annotation.Validated;
 
 @Controller
 public class MedicoController {
-    
-    @RequestMapping(value="/", method=RequestMethod.GET)
-    public String index() {
-        return "index";
-    }
 
     @RequestMapping(value = "/consultarMedicos", method = RequestMethod.GET)
     public ModelAndView consultarMedicos() {
@@ -37,8 +29,8 @@ public class MedicoController {
     @RequestMapping(value = "/consultarMedico", method = RequestMethod.POST)
     public String consultarMedico(@ModelAttribute("medico") Medico med, Model modelo) {
         Medico medico = MedicoModelo.buscarMedicoCodigo(med.getCodigoMedico());
-        System.out.println(med.getNome());
-        modelo.addAttribute("medico", med);
+        System.out.println(medico.getNome());
+        modelo.addAttribute("medico", medico);
 
         return "resultadoMedico"; // Exemplo de redirecionamento
     }
@@ -72,10 +64,12 @@ public class MedicoController {
     }
     
     @RequestMapping(value = "/atualizarMedico", method = RequestMethod.POST)
-    public String atualizarMedico(@ModelAttribute Medico medico) {
+    public String atualizarMedico(@ModelAttribute("medico")@Validated Medico med, BindingResult bindingResult, Model modelo) {
         // Salvar as alterações no banco
-        UsuarioModelo.atualizarUsuario(medico.getCodigoUsuario(), medico); // Implementar no serviço
-        return "redirect:/medico/sucesso"; // Redireciona para uma página de sucesso
+        int cod = UsuarioModelo.buscarUsuarioCPF(med.getCpf()).getCodigoUsuario(); //pegar código
+        System.out.println("Códinho: " + cod);
+        UsuarioModelo.atualizarUsuario(cod, med); // Implementar no serviço
+        return "sucesso"; // Redireciona para uma página de sucesso
     }
 
     @ModelAttribute("medico")

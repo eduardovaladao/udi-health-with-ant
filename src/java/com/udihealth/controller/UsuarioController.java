@@ -40,7 +40,7 @@ public class UsuarioController {
             return "login";
         } else {
             System.out.println(res.toString());
-            return "home";
+            return "index";
         }
     }
     
