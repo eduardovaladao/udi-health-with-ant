@@ -1,3 +1,6 @@
+<%@page import="com.udihealth.modelo.MedicoModelo"%>
+<%@page import="com.udihealth.dominio.Medico"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page contentType="text/html" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
@@ -22,10 +25,23 @@
 </head>
 <body>
     <form:form method="POST" action="${pageContext.request.contextPath}/consultarMedico" modelAttribute="medico" name="formulario" id="formulario">
-        <form:select path="codigoMedico">
+        <!-- <form:select path="codigoMedico">
             <form:option value="0" label="Selecionar" />
             <form:options items="${webConsultarMedicos}" />
-        </form:select>
+        </form:select> -->
+        <%
+            ArrayList<Medico> medicos = MedicoModelo.buscarMedicos();
+            
+            String str = "<table>";
+            
+            for(Medico med : medicos) {
+                str += "<tr><td>" + med.getNome() + "</td><td>" + med.getCpf() + "</td></tr>";
+            }
+            
+            str += "</table>";
+            
+            out.print(str);
+        %>
         <input type="submit" value ="confirmar">
     </form:form>          
 </body>
